@@ -15,9 +15,19 @@ int main(void)
         init_cpu_caches();
 
         BSP_LED_Init(LED_GREEN);
+        BSP_LED_Init(LED_RED);
+        BSP_LED_Init(LED_BLUE);
+        BSP_LED_Init(LED_ORANGE);
+
+        BSP_LED_Toggle(LED_GREEN);
+        BSP_LED_Toggle(LED_RED);
+
         for(;;)
         {
                 BSP_LED_Toggle(LED_GREEN);
+                BSP_LED_Toggle(LED_RED);
+                BSP_LED_Toggle(LED_ORANGE);
+                BSP_LED_Toggle(LED_BLUE);
                 for (int j = 0; j < 1000000; j++);
                 printf("Hello, world! -- %i\n", i++);
         }
