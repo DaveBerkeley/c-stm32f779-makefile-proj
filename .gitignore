@@ -1,5 +1,7 @@
+*.un~
 *.hex
 *.elf
 *.bin
 *.o
 *.map
+.clang_complete
