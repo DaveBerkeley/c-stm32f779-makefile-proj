@@ -70,8 +70,8 @@ MCUFLAGS += -mthumb
 DEBUGFLAGS = -O0 -g -ggdb
 #DEBUGFLAGS = -O2
 
-#CFLAGS = -std=c11
-#CFLAGS += -Wall -Wextra --pedantic
+CFLAGS = -std=c11
+CFLAGS += -Wall -Wextra --pedantic
 
 CFLAGS_EXTRA = -nostartfiles -fdata-sections -ffunction-sections
 CFLAGS_EXTRA += -Wl,--gc-sections -Wl,-Map=$(PROJECT).map

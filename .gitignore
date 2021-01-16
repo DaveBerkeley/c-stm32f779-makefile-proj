@@ -6,3 +6,5 @@
 *.map
 .clang_complete
 tags
+*~
+*.swp

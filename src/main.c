@@ -1,3 +1,6 @@
+
+#include <stdio.h>
+
 #include "stm32f7xx_hal.h"
 #include "stm32f769i_eval.h"
 #include "stm32f769i_eval_io.h"
@@ -30,6 +33,7 @@ static void init_cpu_caches(void)
 	SCB_EnableDCache();
 }
 
+#if 0
 static void SystemClock_Config(void)
 {
 	RCC_ClkInitTypeDef RCC_ClkInitStruct;
@@ -81,24 +85,24 @@ static void SystemClock_Config(void)
 		while(1) { ; }
 	}
 }
+#endif
 
 int main(void)
 {
-	int i = 0;
-	uint8_t *ch = "join ";
+	uint8_t *ch = (uint8_t*) "join ";
 	uint8_t pData[10];
 
 	init_cpu_caches();
 	HAL_Init();
 //	SystemClock_Config();
 
-	BSP_LED_Init(LED_GREEN);
-	BSP_LED_Init(LED_RED);
-	BSP_LED_Init(LED_BLUE);
-	BSP_LED_Init(LED_ORANGE);
+	//BSP_LED_Init(LED_GREEN);
+	//BSP_LED_Init(LED_RED);
+	//BSP_LED_Init(LED_BLUE);
+	//BSP_LED_Init(LED_ORANGE);
 
-	BSP_LED_Toggle(LED_GREEN);
-	BSP_LED_Toggle(LED_RED);
+	//BSP_LED_Toggle(LED_GREEN);
+	//BSP_LED_Toggle(LED_RED);
 
 	uart_handle.Instance = USARTx;
 	uart_handle.Init.BaudRate = 9600;
@@ -117,11 +121,12 @@ int main(void)
 	printf("Uart enabled\n");
 	for(;;)
 	{
-		BSP_LED_Toggle(LED_GREEN);
-		BSP_LED_Toggle(LED_RED);
-		BSP_LED_Toggle(LED_ORANGE);
-		BSP_LED_Toggle(LED_BLUE);
-		for (int j = 0; j < 1000000; j++);
+		//BSP_LED_Toggle(LED_GREEN);
+		//BSP_LED_Toggle(LED_RED);
+		//BSP_LED_Toggle(LED_ORANGE);
+		//BSP_LED_Toggle(LED_BLUE);
+		for (int j = 0; j < 1000000; j++)
+            ;
 		//printf("Toggle\n");
 		HAL_UART_Transmit(&uart_handle, (uint8_t *)ch, 5, 0xFFFF);
 		HAL_UART_Receive(&uart_handle, pData, 5, 0x000f);
@@ -129,3 +134,5 @@ int main(void)
 	}
 	return 0;
 }
+
+//  FIN
