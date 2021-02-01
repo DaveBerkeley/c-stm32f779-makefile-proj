@@ -28,6 +28,7 @@ SOURCES_C += Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_pwr_ex.c
 SOURCES_C += Drivers/STM32F7xx_HAL_Driver/Src/stm32f7xx_hal_wwdg.c
 SOURCES_C += src/stm32f7xx_it.c
 SOURCES_C += src/stm32f7xx_hal_msp.c
+#SOURCES_C += src/syscalls.c
 
 SOURCES = $(SOURCES_S) $(SOURCES_C)
 OBJS = $(SOURCES_S:.s=.o) $(SOURCES_C:.c=.o)
@@ -72,8 +73,9 @@ DEBUGFLAGS = -O0 -g -ggdb
 
 CFLAGS = -std=c11
 CFLAGS += -Wall -Wextra --pedantic
+CFLAGS += -g
 
-CFLAGS_EXTRA = -nostartfiles -fdata-sections -ffunction-sections
+CFLAGS_EXTRA += -nostartfiles -fdata-sections -ffunction-sections
 CFLAGS_EXTRA += -Wl,--gc-sections -Wl,-Map=$(PROJECT).map
 
 CFLAGS += $(DEFINES) $(MCUFLAGS) $(DEBUG_FLAGS) $(CFLAGS_EXTRA) $(INCLUDES)

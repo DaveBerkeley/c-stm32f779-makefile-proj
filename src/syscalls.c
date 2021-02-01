@@ -28,7 +28,7 @@ extern int __io_getchar(void) __attribute__((weak));
 
 
 
-
+#if 0
 caddr_t _sbrk(int incr)
 {
 	extern char end asm("end");
@@ -61,6 +61,7 @@ caddr_t _sbrk(int incr)
 
 	return (caddr_t) prev_heap_end;
 }
+#endif
 
 /*
  * _gettimeofday primitive (Stub function)
@@ -103,7 +104,7 @@ int _write(int file, char *ptr, int len)
 
 		for (DataIdx = 0; DataIdx < len; DataIdx++)
 		{
-		   ITM_SendChar( *ptr++ );
+		   //ITM_SendChar( *ptr++ );
 		}
 	return len;
 }
@@ -113,7 +114,7 @@ int _close(int file)
 	return -1;
 }
 
-int _fstat(int file, struct stat *st)
+int _fstat_r(struct _reent * r, int file, struct stat *st)
 {
 	st->st_mode = S_IFCHR;
 	return 0;
