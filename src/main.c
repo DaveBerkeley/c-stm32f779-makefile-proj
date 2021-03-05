@@ -12,16 +12,16 @@ UART_HandleTypeDef uart_handle;
 
 static void init_cpu_caches(void)
 {
-	SCB_EnableICache();
-	SCB_EnableDCache();
+    SCB_EnableICache();
+    SCB_EnableDCache();
 }
 
 int main(void)
 {
-	const char *ch = "hello world!\r\n";
+    const char *ch = "hello world!\r\n";
 
-	init_cpu_caches();
-	HAL_Init();
+    init_cpu_caches();
+    HAL_Init();
 
     // UART Init
     uart_handle.Instance = USART1;
@@ -35,20 +35,26 @@ int main(void)
     uart_handle.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
     uart_handle.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 
-	if (HAL_UART_Init(&uart_handle) != HAL_OK)
-	{
-		//printf("UART Init failed\n");
-		while (1);
-	}
+    if (HAL_UART_Init(&uart_handle) != HAL_OK)
+    {
+        //printf("UART Init failed\n");
+        while (1);
+    }
 
-	//printf("Uart enabled\n");
-	for(;;)
-	{
-		HAL_UART_Transmit(&uart_handle, (uint8_t *)ch, strlen(ch), 0xFFFF);
-		//HAL_UART_Receive(&uart_handle, pData, 5, 0x000f);
-		//printf("Data: %s\n",pData);
-	}
-	return 0;
+    char buff[128];
+    int count = 0;
+
+    //printf("Uart enabled\n");
+    for(;;)
+    {
+        snprintf(buff, sizeof(buff), "%d", count);
+        count += 1;
+
+        HAL_UART_Transmit(&uart_handle, buff, strlen(buff), 0xFFFF);
+        //HAL_UART_Receive(&uart_handle, pData, 5, 0x000f);
+        //printf("Data: %s\n",pData);
+    }
+    return 0;
 }
 
 //  FIN

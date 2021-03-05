@@ -47,6 +47,7 @@ DEFINES = -DSTM32 -DSTM32F7 -DSTM32F779xx
 ################
 # Compiler/Assembler/Linker/etc
 
+CC_PATH ?= /usr/bin
 PREFIX = $(CC_PATH)/arm-none-eabi
 
 CC = $(PREFIX)-gcc
@@ -65,8 +66,9 @@ RM = rm -f
 # Compiler options
 
 MCUFLAGS = -mcpu=cortex-m7 -mlittle-endian
-MCUFLAGS += -mfloat-abi=hard -mfpu=fpv5-sp-d16
-MCUFLAGS += -mthumb
+#MCUFLAGS += -mfloat-abi=hard -mfpu=fpv5-sp-d16
+#MCUFLAGS += -mthumb
+#MCUFLAGS += -marm
 
 DEBUGFLAGS = -O0 -g -ggdb
 #DEBUGFLAGS = -O2
@@ -93,14 +95,14 @@ LDFLAGS += -Xlinker -Map -Xlinker $(PROJECT).map
 ################
 # Build rules
 
-all: $(PROJECT).hex
+all: $(PROJECT).bin
 
-$(PROJECT).hex: $(PROJECT).elf
-	$(OBJCOPY) -O ihex $(PROJECT).elf $(PROJECT).hex
+$(PROJECT).bin: $(PROJECT).elf
+	$(OBJCOPY) -O binary $(PROJECT).elf $(PROJECT).bin
 
 $(PROJECT).elf: $(OBJS)
 	$(LD) $(OBJS) $(LDFLAGS) -o $(PROJECT).elf
 	$(SIZE) -A $(PROJECT).elf
 
-clean:
-	$(RM) $(OBJS) $(PROJECT).elf $(PROJECT).hex $(PROJECT).map
+clean: Makefile
+	$(RM) $(OBJS) $(PROJECT).elf $(PROJECT).bin $(PROJECT).map
