@@ -66,9 +66,8 @@ RM = rm -f
 # Compiler options
 
 MCUFLAGS = -mcpu=cortex-m7 -mlittle-endian
-#MCUFLAGS += -mfloat-abi=hard -mfpu=fpv5-sp-d16
-#MCUFLAGS += -mthumb
-#MCUFLAGS += -marm
+MCUFLAGS += -mfloat-abi=hard -mfpu=fpv5-sp-d16
+MCUFLAGS += -mthumb
 
 DEBUGFLAGS = -O0 -g -ggdb
 #DEBUGFLAGS = -O2
@@ -83,7 +82,8 @@ CFLAGS_EXTRA += -Wl,--gc-sections -Wl,-Map=$(PROJECT).map
 CFLAGS += $(DEFINES) $(MCUFLAGS) $(DEBUG_FLAGS) $(CFLAGS_EXTRA) $(INCLUDES)
 
 LDFLAGS = -static $(MCUFLAGS) $(DEBUG_FLAGS)
-LDFLAGS += -Wl,--start-group -lgcc -lm -lc -lg -Wl,--end-group
+#LDFLAGS += -Wl,--start-group -lgcc -lm -lc -lg -Wl,--end-group
+LDFLAGS  += -Wl,--start-group -lgcc -lm -lc     -Wl,--end-group
 
 # Enable Semihosting
 LDFLAGS += --specs=rdimon.specs -lrdimon
